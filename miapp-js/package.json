@@ -1,0 +1,30 @@
+{
+  "name": "orquestador-tecnico-v2",
+  "version": "2.0.0",
+  "description": "Orquestador Técnico — traducción a Node/Express del prototipo Flask original, con persistencia en MongoDB y checkpoints en JSON.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.1",
+    "groq-sdk": "^0.7.0",
+    "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.9"
+  }
+}

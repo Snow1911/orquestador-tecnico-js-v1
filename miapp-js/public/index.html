@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orquestador Técnico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="css/styles.css">
+<!-- Versiones fijadas (antes marked iba sin versión) -->
+<script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+</head>
+<body>
+
+<div id="stars"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div id="cinematicOverlay"><div id="rippleCircle"></div></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <span class="logo-hex">⬡</span>
+    <span class="logo-text">ORQUESTADOR</span>
+    <span class="logo-sep">·</span>
+    <span class="logo-sub">TÉCNICO</span>
+  </div>
+  <div class="breadcrumb" id="breadcrumb"></div>
+</header>
+
+<!-- SELECTIONS BAR -->
+<div id="selectionsBar">
+  <div class="sel-group" id="selFrontend">
+    <span class="sel-label">◱ FRONTEND</span>
+    <span class="sel-empty">—</span>
+  </div>
+  <div class="sel-divider"></div>
+  <div class="sel-group" id="selBackend">
+    <span class="sel-label">◳ BACKEND</span>
+    <span class="sel-empty">—</span>
+  </div>
+</div>
+
+<!-- PHASE HINT -->
+<div id="phaseHint">
+  <span>⬡</span>
+  <span id="phaseHintText"></span>
+</div>
+
+<!-- MAIN STAGE -->
+<main class="stage" id="stage">
+  <div class="stage-eyebrow" id="eyebrow">PUNTO DE PARTIDA</div>
+  <h1  class="stage-title"  id="stageTitle">Elige tu <em>infraestructura</em></h1>
+  <p   class="stage-hint"   id="stageHint">// selecciona una categoría para comenzar</p>
+  <div class="nodes-grid"   id="nodesGrid"></div>
+  <!-- "¿Ya tienes tu app?" button -->
+  <div class="already-wrap" id="alreadyWrap">
+    <button class="already-btn" id="alreadyBtn">
+      <span class="already-btn-icon">⚡</span>
+      ¿Ya tienes tu app? — Llévala al siguiente nivel
+    </button>
+    <button class="already-btn import-btn" id="importJsonBtn">
+      <span class="already-btn-icon">↑</span>
+      Importar sesión — cargar JSON de Fase 1
+    </button>
+    <input type="file" id="importJsonInput" accept=".json" style="display:none">
+  </div>
+</main>
+
+<!-- SELECTION MODAL -->
+<div id="selectionModal">
+  <div class="modal-box">
+    <span class="modal-tag" id="modalTag">DECISIÓN</span>
+    <span class="modal-icon" id="modalIcon">⚡</span>
+    <h2   class="modal-title" id="modalTitle"></h2>
+    <p    class="modal-desc"  id="modalDesc"></p>
+    <div  class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
+<!-- AI PANEL (Phase 1) -->
+<div id="aiPanel">
+  <div class="ai-header">
+    <div class="ai-badge">
+      <div id="aiStatusDot" class="pulsing"></div>
+      <span id="aiStatusText">GENERANDO ARQUITECTURA</span>
+    </div>
+    <button class="ai-back-btn" id="backBtn">← Volver al explorador</button>
+  </div>
+  <div class="ai-body">
+    <div class="ai-body-inner">
+      <div class="ai-route"    id="aiRoute"></div>
+      <div class="ai-tech-row" id="aiTechRow"></div>
+      <div id="aiContent"></div>
+      <!-- NEXT STEP FOOTER (shown when Phase 1 is done) -->
+      <div class="ai-next-footer" id="aiNextFooter">
+        <div class="ai-next-left">
+          <span>✓ ARQUITECTURA GENERADA</span>
+        </div>
+        <div class="ai-next-actions">
+          <button class="ai-next-btn export" id="exportJsonBtn">↓ Exportar sesión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     MANUAL SELECTION PANEL
+     ══════════════════════════════════════════════════════ -->
+<div id="manualPanel">
+  <div class="manual-box">
+    <button class="manual-close" id="manualCloseBtn">✕</button>
+    <div class="modal-tag" style="display:inline-block;margin-bottom:1rem">FASE 2</div>
+    <h2 class="manual-title">¿Ya tienes tu app?</h2>
+    <p class="manual-sub">Selecciona las herramientas con las que trabajas actualmente.<br>El Orquestador te guiará desde ahí al siguiente nivel.</p>
+
+    <!-- Frontend -->
+    <div class="manual-field">
+      <label class="manual-field-label">◱ Herramienta de Frontend / Despliegue</label>
+      <select class="manual-select" id="manualFrontend">
+        <option value="none">— Selecciona tu herramienta actual —</option>
+        <optgroup label="📱 Móvil — Android Solo">
+          <option value="movil_android|MIT App Inventor">MIT App Inventor</option>
+          <option value="movil_android|Thunkable">Thunkable</option>
+          <option value="movil_android|Kodular">Kodular</option>
+        </optgroup>
+        <optgroup label="📱 Móvil — iOS Solo">
+          <option value="movil_ios|Swift Playgrounds">Swift Playgrounds</option>
+          <option value="movil_ios|SwiftUI básico">SwiftUI básico</option>
+        </optgroup>
+        <optgroup label="📱 Móvil — Multiplataforma">
+          <option value="movil_cross|FlutterFlow">FlutterFlow</option>
+          <option value="movil_cross|Adalo">Adalo</option>
+          <option value="movil_cross|Glide">Glide</option>
+          <option value="movil_cross|Expo Snacks">Expo Snacks</option>
+        </optgroup>
+        <optgroup label="💻 Desktop — Windows">
+          <option value="desktop_windows|Windows Forms Designer">Windows Forms Designer</option>
+          <option value="desktop_windows|PowerShell Studio">PowerShell Studio</option>
+          <option value="desktop_windows|AutoIt+Koda">AutoIt + Koda</option>
+        </optgroup>
+        <optgroup label="💻 Desktop — macOS">
+          <option value="desktop_macos|Swift Playgrounds">Swift Playgrounds (Mac)</option>
+          <option value="desktop_macos|Xcode+Storyboards básico">Xcode + Storyboards básico</option>
+        </optgroup>
+        <optgroup label="💻 Desktop — Linux">
+          <option value="desktop_linux|Glade+GTK">Glade + GTK</option>
+          <option value="desktop_linux|Lazarus IDE">Lazarus IDE</option>
+        </optgroup>
+        <optgroup label="💻 Desktop — Multiplataforma">
+          <option value="desktop_cross|Electron Fiddle">Electron Fiddle</option>
+          <option value="desktop_cross|Tauri Studio">Tauri Studio</option>
+        </optgroup>
+        <optgroup label="🌐 Web">
+          <option value="web|HTML5+CSS3+JS">HTML5 + CSS3 + JS</option>
+          <option value="web|Codepen">Codepen</option>
+          <option value="web|JSFiddle">JSFiddle</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="manual-divider"></div>
+
+    <!-- Database -->
+    <div class="manual-field">
+      <label class="manual-field-label">◆ Base de Datos (opcional)</label>
+      <select class="manual-select" id="manualDB">
+        <option value="none">— Sin base de datos —</option>
+        <option value="SQLite">SQLite</option>
+        <option value="MongoDB standalone">MongoDB (modo standalone)</option>
+        <option value="MySQL">MySQL</option>
+        <option value="PostgreSQL">PostgreSQL</option>
+        <option value="Oracle Database">Oracle Database</option>
+      </select>
+    </div>
+
+    <!-- Cloud -->
+    <div class="manual-field">
+      <label class="manual-field-label">☁ Servicio Cloud (opcional)</label>
+      <select class="manual-select" id="manualCloud">
+        <option value="none">— Sin servicio cloud —</option>
+        <option value="Ninguno/Local XAMPP">Local (XAMPP)</option>
+        <option value="Ninguno/Local Docker">Local (Docker Compose básico)</option>
+        <option value="Ninguno/Local VirtualBox">Local (VirtualBox)</option>
+        <option value="Amazon Web Services (AWS)">Amazon Web Services (AWS)</option>
+        <option value="Google Cloud Platform (GCP)">Google Cloud Platform (GCP)</option>
+        <option value="Microsoft Azure">Microsoft Azure</option>
+        <option value="IBM Cloud">IBM Cloud</option>
+      </select>
+    </div>
+
+    <button class="manual-start-btn" id="manualStartBtn" disabled>
+      ⚡ Evolucionar mi app →
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PHASE 2 PANEL
+     ══════════════════════════════════════════════════════ -->
+<div id="p2Panel">
+  <div class="p2-header">
+    <div class="p2-badge">
+      <div class="p2-phase-dot"></div>
+      <span>ORQUESTADOR · FASE 2</span>
+    </div>
+    <button class="p2-exit-btn" id="p2ExitBtn">← Salir al menú</button>
+  </div>
+
+  <div class="p2-scroll">
+
+    <!-- SELECTOR VIEW -->
+    <div id="p2SelectorView">
+      <div class="p2-ctx-bar" id="p2CtxBar"></div>
+      <div class="p2-eyebrow">
+        <span>⚡</span>
+        <span>EVOLUCIÓN DE ARQUITECTURA</span>
+      </div>
+      <h2 class="p2-main-title">¿Por dónde quieres <em>evolucionar</em>?</h2>
+      <p class="p2-main-hint">// selecciona una sección para ver tu hoja de ruta</p>
+
+      <div class="p2-cat-grid" id="p2CatGrid"></div>
+
+      <div class="p2-terminar-wrap" id="p2TerminarWrap" style="display:none">
+        <button class="p2-terminar-btn" id="p2TerminarBtn">
+          ✓ Terminar — Volver al explorador
+        </button>
+      </div>
+    </div>
+
+    <!-- RESPONSE VIEW -->
+    <div id="p2ResponseView">
+      <div class="p2-resp-header">
+        <button class="p2-back-btn" id="p2BackToCatsBtn">← Volver a categorías</button>
+        <div class="p2-section-badge">
+          <div class="p2-section-dot" id="p2SectionDot"></div>
+          <span id="p2SectionLabel">CARGANDO…</span>
+        </div>
+      </div>
+      <div class="p2-resp-body">
+        <div id="p2Content"></div>
+      </div>
+    </div>
+
+  </div><!-- /p2-scroll -->
+</div><!-- /p2Panel -->
+
+<script defer src="js/config.js"></script>
+<script defer src="js/api.js"></script>
+<script defer src="js/phase2.js"></script>
+<script defer src="js/session.js"></script>
+<script defer src="js/state.js"></script>
+<script defer src="js/modal.js"></script>
+<script defer src="js/wizard.js"></script>
+<script defer src="js/ai-panel.js"></script>
+<script defer src="js/main.js"></script>
+</body>
+</html>

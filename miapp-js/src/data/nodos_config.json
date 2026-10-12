@@ -1,0 +1,128 @@
+{
+  "n1": { "label": "Infraestructura", "hijos": ["n2", "n3"] },
+  "n2": { "label": "Frontend", "hijos": ["n4"] },
+  "n4": { "label": "Despliegue", "hijos": ["n5", "n6", "n7"] },
+  "n5": { "label": "Móvil", "hijos": ["n8", "n9"] },
+  "n9": { "label": "Teléfono", "hijos": ["n10", "n11", "n12"] },
+  "n10": {
+    "label": "Android",
+    "rama": "frontend",
+    "tecnologias": ["Kotlin", "Jetpack Compose", "Retrofit", "Room DB"]
+  },
+  "n11": {
+    "label": "Ambos (cross\u2011platform)",
+    "rama": "frontend",
+    "tecnologias": ["Flutter", "Dart", "React Native", "Firebase"]
+  },
+  "n12": { "label": "iPhone", "rama": "frontend", "tecnologias": ["Swift", "SwiftUI", "CoreData"] },
+  "n8": { "label": "Tablet", "hijos": ["n13", "n14"] },
+  "n13": {
+    "label": "iPadOS",
+    "rama": "frontend",
+    "tecnologias": ["SwiftUI", "Combine Framework", "Apple Pencil SDK"]
+  },
+  "n14": {
+    "label": "Android Tablet",
+    "rama": "frontend",
+    "tecnologias": ["Kotlin", "Dynamic Layouts", "Multi-window API"]
+  },
+  "n6": { "label": "Desktop", "hijos": ["n15", "n16", "n17"] },
+  "n15": { "label": "macOS", "rama": "frontend", "tecnologias": ["Swift", "AppKit", "Sandboxing"] },
+  "n16": { "label": "Windows", "rama": "frontend", "tecnologias": ["C#", ".NET MAUI", "Entity Framework"] },
+  "n17": {
+    "label": "Linux",
+    "rama": "frontend",
+    "tecnologias": ["Python (PyQt6)", "C++ GTK", "Debian/Fedora Packaging"]
+  },
+  "n7": { "label": "Web", "hijos": ["n18", "n19", "n20"] },
+  "n18": {
+    "label": "Mozilla",
+    "rama": "frontend",
+    "tecnologias": ["JavaScript ES6", "CSS Grid", "Service Workers"]
+  },
+  "n19": {
+    "label": "Chromium",
+    "rama": "frontend",
+    "tecnologias": ["WebAssembly", "V8 Optimization", "PWA"]
+  },
+  "n20": {
+    "label": "Safari",
+    "rama": "frontend",
+    "tecnologias": ["WebKit", "Intelligent Tracking Prevention"]
+  },
+  "n3": { "label": "Backend", "hijos": ["n36", "n42"] },
+  "n36": { "label": "Servicios Cloud", "hijos": ["n37", "n38", "n39", "n40", "n41"] },
+  "n37": {
+    "label": "Amazon Web Services (AWS)",
+    "rama": "backend",
+    "subcategoria": "cloud",
+    "tecnologias": ["EC2", "S3", "Lambda", "IAM"]
+  },
+  "n38": {
+    "label": "Google Cloud Platform (GCP)",
+    "rama": "backend",
+    "subcategoria": "cloud",
+    "tecnologias": ["Cloud Run", "Firebase Auth", "BigQuery"]
+  },
+  "n39": {
+    "label": "Microsoft Azure",
+    "rama": "backend",
+    "subcategoria": "cloud",
+    "tecnologias": ["Azure Functions", "App Service", "Key Vault"]
+  },
+  "n40": {
+    "label": "IBM Cloud / Otro",
+    "rama": "backend",
+    "subcategoria": "cloud",
+    "tecnologias": ["Cloud Foundry", "Kubernetes"]
+  },
+  "n41": {
+    "label": "Ninguno (solo local)",
+    "rama": "backend",
+    "subcategoria": "cloud",
+    "tecnologias": ["Docker", "Docker Compose", "Nginx"]
+  },
+  "n42": { "label": "Base de Datos", "hijos": ["n43", "n44", "n46", "n47", "n48", "n49", "n52"] },
+  "n43": {
+    "label": "PostgreSQL",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["SQL", "PL/pgSQL", "Indexing", "JSONB"]
+  },
+  "n44": {
+    "label": "MySQL",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["SQL", "Replication", "InnoDB Engine"]
+  },
+  "n46": {
+    "label": "Microsoft Access",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["VBA", "Relational Mapping"]
+  },
+  "n47": {
+    "label": "SQLite",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["Local Cache", "SQLCipher", "Offline-first"]
+  },
+  "n48": {
+    "label": "Oracle Database",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["PL/SQL", "Enterprise Security", "RMAN"]
+  },
+  "n49": {
+    "label": "MongoDB",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["NoSQL", "Aggregation Framework", "Sharding"]
+  },
+  "n52": {
+    "label": "Ninguno (sin BD)",
+    "rama": "backend",
+    "subcategoria": "db",
+    "tecnologias": ["State Management", "Local Files"]
+  }
+}
