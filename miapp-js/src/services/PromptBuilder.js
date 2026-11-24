@@ -168,23 +168,23 @@ BACKEND:${beLines}
 
 Responde con EXACTAMENTE este formato Markdown:
 
-## 1. ARQUITECTURA GENERAL
-Explica el patrón arquitectónico que integra todas las capas seleccionadas. Justifica decisiones de diseño específicas para esta combinación de tecnologías.
+## 1. ARQUITECTURA + (Pon nombre de la arquitectura recomendada)
+Recomienda un modulo de arquitectura de software en base a lo seleccionado, haz que salga al principio de la respuesta la arquitectura recomendada (por ejemplo de microservicios o asi), da un brebe resumen de por què y explica el patrón arquitectónico que integra todas las capas seleccionadas. Justifica decisiones de diseño específicas para esta combinación de tecnologías.
 
 ## 2. FRONTEND — ${feLabel}
-Implementación detallada del frontend: estructura de componentes, gestión de estado, configuración específica para ${feTechs} y cómo se comunica con el backend.
+(Hazlo dependiento a la arquitectura recomendada)Implementación detallada del frontend: estructura de componentes, gestión de estado, configuración específica para ${feTechs} y cómo se comunica con el backend.
 
 ## 3. ${sub0} — ${be0.label || ''}
-Configuración e implementación: estructura de servicios, autenticación, endpoints y buenas prácticas para ${(be0.tecnologias || []).join(', ')}.
+(Hazlo dependiento a la arquitectura recomendada)Configuración e implementación: estructura de servicios, autenticación, endpoints y buenas prácticas para ${(be0.tecnologias || []).join(', ')}.
 ${sectionDb}
 ## 5. INTEGRACIÓN FRONTEND ↔ BACKEND
-Diseño de la API (REST/GraphQL/WebSocket según corresponda), flujo de autenticación, manejo de errores cross-layer y contrato de datos.
+(Hazlo dependiento a la arquitectura recomendada)Diseño de la API (REST/GraphQL/WebSocket según corresponda), flujo de autenticación, manejo de errores cross-layer y contrato de datos.
 
 ## 6. DESPLIEGUE Y CI/CD
-Pipeline de despliegue end-to-end integrando todas las capas: build, test, staging y producción.
+(Hazlo dependiento a la arquitectura recomendada)Pipeline de despliegue end-to-end integrando todas las capas: build, test, staging y producción.
 
 ## 7. SEGURIDAD
-3 medidas críticas de seguridad específicas para este stack completo, con ejemplos concretos de implementación.
+(Hazlo dependiento a la arquitectura recomendada)3 medidas críticas de seguridad específicas para este stack completo, con ejemplos concretos de implementación.
 `;
 }
 
